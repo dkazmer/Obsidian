@@ -9,11 +9,24 @@ export class Observer {
 	) {
 		this.#observer = new MutationObserver((list, obs) => {
 			for (const mutation of list) {
-				if (mutation.type === 'childList') {
-					console.log('A child node has been added or removed.', mutation);
-					this.#notify.added?.(mutation);
-				} else if (mutation.type === 'attributes') {
-					console.log(`The ${mutation.attributeName} attribute was modified.`, mutation);
+				switch (mutation.type) {
+					case 'childList':
+						{
+							const { addedNodes, removedNodes } = mutation;
+							addedNodes.length && this.#notify.added?.(addedNodes);
+							removedNodes.length && this.#notify.removed?.(removedNodes);
+						}
+						break;
+
+					case 'attributes':
+						{
+							const { target: t, attributeName } = mutation;
+							this.#notify.attr?.({ attribute: attributeName, target: t });
+						}
+						break;
+
+					default:
+						break;
 				}
 			}
 		});
@@ -68,9 +81,9 @@ export class Observer {
 }
 
 interface Notify<T = void> {
-	attr?: Fn<T, MutationRecord>;
-	added?: Fn<T, MutationRecord>;
-	removed?: Fn<T, MutationRecord>;
+	attr?: Fn<T, { attribute: string | null; target: Node }>;
+	added?: Fn<T, NodeList>;
+	removed?: Fn<T, NodeList>;
 }
 
 type Fn<T = void, U = any> = (...args: U[]) => T;

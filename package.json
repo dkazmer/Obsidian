@@ -5,7 +5,7 @@
 	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "esbuild src/observers.ts --bundle --sourcemap --watch --outfile=main.js --servedir=/"
+		"start": "esbuild src/main.ts --bundle --sourcemap --watch --outfile=main.js --servedir=/"
 	},
 	"keywords": [],
 	"author": "Daniel B. Kazmer",
