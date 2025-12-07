@@ -78,6 +78,7 @@ abstract class Observer<
 
 	/**
 	 * resume
+	 * @summary resume a suspended observer
 	 */
 	public resume() {
 		if (this.#isSuspended === false) {
@@ -94,6 +95,7 @@ abstract class Observer<
 
 	/**
 	 * suspend
+	 * @summary stop observing; reserves the right to resume
 	 */
 	public suspend() {
 		if (this.#isSuspended === true) {
@@ -106,9 +108,10 @@ abstract class Observer<
 	}
 
 	/**
-	 * kill
+	 * dump
+	 * @summary end the process entirely and destroy the instance
 	 */
-	public kill() {
+	public dump() {
 		this.observer.disconnect();
 
 		for (const prop in this) {

@@ -21,26 +21,23 @@ Implementation examples:
 ```ts
 import { Obsidium } from 'obsidium';
 
-const oM = new Obsidium.mutation(scopeElement)
+Obsidium.mutation(scopeElement)
 	.on('added', myCallbackAdd)
 	.on('removed', myCallbackRmv);
 
-const oR = new Obsidium.resize(element)
-	.on('resize', myCallback);
-
-const oI = new Obsidium.intersection(element)
-    .on('intersect', myCallback);
+Obsidium.resize(element).on('resize', myCallback);
+Obsidium.intersection(element).on('intersect', myCallback);
 ```
 `on` method is fully intellisensed! Control your instance with the following methods:
 
 Method | Desc.
 ------ | -----
-`suspend` | stop observing, reserving the right to resume
+`suspend` | stop observing; reserves the right to resume
 `resume` | resume a suspended observer
-`kill` | end the process entirely and destroy the instance
+`dump` | end the process entirely and destroy the instance
 
 The generic default settings are set for each observer, which can be overridden via the second, fully typed, parameter of the constructor, specific to the chosen observer type. **Caveat:** `resize` has no "options" param as it's not complex enough to need one.
 
 ```ts
-new Obsidium[observerType](elementObserved, observerTypeOptions);
+const myObs = new Obsidium[observerType](elementObserved, observerTypeOptions);
 ```
