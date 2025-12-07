@@ -7,7 +7,7 @@ Created to encourage greater use of these high-value JS utilities, as they're va
 
 I found that every time I wanted to use one or more of them, I'd have to go out of my way to research and refresh my understanding thereof. Moreover, there are subtle differences in their implementation between them that's just annoying.
 
-I really just want to set it and forget it. `Obsidium` allows me and just about anyone else to do just that...in a consolidated way. The idea is to instantiate the desired type of observer, respectively:
+I really just want to set it and forget it. `Obsidium` allows me and just about anyone else to do just that...in a consolidated way. The idea is to instantiate the desired type of observer:
 
 Class | wraps...
 ----- | --------
@@ -17,9 +17,9 @@ Class | wraps...
 
 ### Usage
 
-Implementation examples only:
+Implementation examples:
 ```ts
-import { Obsidium } from 'obsidian';
+import { Obsidium } from 'obsidium';
 
 const oM = new Obsidium.mutation(scopeElement)
 	.on('added', myCallbackAdd)

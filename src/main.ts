@@ -1,13 +1,13 @@
 import { Obsidium } from './observers';
 
-window.mo = new Obsidium.mutation(document.body)
-	.on('added', x => console.log('>> added!', x))
-	.on('removed', y => console.log('>> remved!', y))
+window.mo = Obsidium.mutation(document.body)
+	.on('add', x => console.log('>> added!', x))
+	.on('remove', y => console.log('>> remved!', y))
 	.on('attr', z => console.log('>> attr!', z));
 
-window.ro = new Obsidium.resize(document.body).on('resize', x => console.log('>> resized!', x));
+window.ro = Obsidium.resize(document.body).on('resize', x => console.log('>> resized!', x));
 
-window.io = new Obsidium.intersection(document.body).on('intersect', x => console.log('>> intersected!', x));
+window.io = Obsidium.intersection(document.body).on('intersect', x => console.log('>> intersected!', x));
 
 declare global {
 	var mo: Obsidium;
