@@ -17,18 +17,22 @@ Class | wraps...
 
 ### Usage
 
-Implementation examples:
+Implementation examples (not a exhaustive list):
 ```ts
 import { Obsidium } from 'obsidium';
 
 Obsidium.mutation(scopeElement)
-	.on('added', myCallbackAdd)
-	.on('removed', myCallbackRmv);
+	.on('add', myCallbackAdd)
+	.on('remove', myCallbackRmv);
 
 Obsidium.resize(element).on('resize', myCallback);
 Obsidium.intersection(element).on('intersect', myCallback);
 ```
-`on` method is fully intellisensed! Control your instance with the following methods:
+`on` method is fully intellisensed! Meaning, the available options will be made known.
+
+### Methods
+
+Control your instance with the following methods:
 
 Method | Desc.
 ------ | -----
@@ -37,8 +41,10 @@ Method | Desc.
 `toggle` | suspend or resume depending on observer state
 `dump` | end the process entirely and destroy the instance
 
-The generic default settings are set for each observer, which can be overridden via the second, fully typed, parameter of the constructor, specific to the chosen observer type. **Caveat:** `resize` has no "options" param as it's not complex enough to need one.
+### Settings
+
+The generic default settings are set for each observer, which can be overridden via the second, pointedly typed, parameter of the wrapped constructor, specific to the chosen observer type. **Caveat:** `resize` has no "options" param as it's not complex enough to need one.
 
 ```ts
-const myObs = new Obsidium[observerType](elementObserved, observerTypeOptions);
+const myObs = Obsidium[observerType](elementObserved, observerTypeOptions);
 ```
