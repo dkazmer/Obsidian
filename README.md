@@ -9,7 +9,7 @@ I found that every time I wanted to use one or more of them, I'd have to go out 
 
 I really just want to set it and forget it. `Obsidium` allows me and just about anyone else to do just that...in a consolidated way. The idea is to instantiate the desired type of observer:
 
-Class | wraps...
+Obs. name | wraps...
 ----- | --------
 `mutation` | `MutationObserver`
 `resize` | `ResizeObserver`
@@ -46,5 +46,5 @@ Method | Desc.
 The generic default settings are set for each observer, which can be overridden via the second, pointedly typed, parameter of the wrapped constructor, specific to the chosen observer type. **Caveat:** `resize` has no "options" param as it's not complex enough to need one.
 
 ```ts
-const myObs = Obsidium[observerType](elementObserved, observerTypeOptions);
+const myObs = Obsidium[obsName](elementObsd, obsOptions);
 ```
