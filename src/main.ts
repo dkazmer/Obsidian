@@ -1,4 +1,4 @@
-import { Obsidium } from './observers';
+import { Obsidium } from './obsidium';
 
 window.mo = Obsidium.mutation(document.body)
 	.on('add', nodes => console.log('>> added!', nodes))
