@@ -1,8 +1,9 @@
 import { Obsidium } from './obsidium';
 
 window.mo = Obsidium.mutation(document.body)
-	.on('add', nodes => console.log('>> added!', nodes))
-	.on('remove', nodes => console.log('>> removed!', nodes))
+	// .on('add', nodes => console.log('>> added!', nodes))
+	// .on('remove', nodes => console.log('>> removed!', nodes))
+	.on('mutate', (added, removed) => console.log('>> mutated!', added, removed))
 	.on('attr', ({ attribute, target }) => console.log('>> attr!', attribute, target));
 
 window.ro = Obsidium.resize(document.body).on('resize', ({ contentBoxSize }) =>

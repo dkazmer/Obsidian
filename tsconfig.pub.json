@@ -1,6 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"files": ["src/observers.ts"],
+	"files": ["src/obsidium.ts"],
 	"compilerOptions": {
 		// "outDir": "./dist",
 		"declaration": true,

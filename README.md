@@ -17,7 +17,7 @@ Obs. name | wraps…
 
 ### Usage
 
-Implementation examples (not an exhaustive list):
+Implementation examples (not exhaustive):
 ```ts
 import { Obsidium } from 'obsidium';
 
@@ -46,5 +46,5 @@ Method | Desc.
 The generic default settings are set for each observer, which can be overridden via the second, pointedly typed, parameter of the wrapped constructor, specific to the chosen observer type. **Caveat:** `resize` has no such settings as it's not complex enough to need one.
 
 ```ts
-const myObs = Obsidium[obsName](elementObsd, obsOptions);
+const myObs: Obsidium = Obsidium[obsName](elementObsd, obsOptions);
 ```

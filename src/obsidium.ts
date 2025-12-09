@@ -6,7 +6,7 @@
  * @summary Created to encourage greater use of these high-value JS utilities,
  * as they're vastly underused and unknown, largely due to their complex implementation strategy.
  * @author Daniel B. Kazmer
- * @version 1.0.2
+ * @version 1.0.3
  * @see {@link https://github.com/dkazmer/Obsidium|GitHub}
  */
 export namespace Obsidium {
@@ -131,6 +131,7 @@ abstract class Observer<
 	 * @summary subscription method, with accurate intellisense; examples in parent class/fn
 	 */
 	public on<K extends OnKeys>(name: K, fn: Exclude<Notify[K], undefined>) {
+		// @ts-expect-error: 2556
 		this.notify[name] = (...e: any[]) => fn.call(this, ...e);
 		return this;
 	}
@@ -212,12 +213,12 @@ function resolve<T = string>(msg: T) {
 // types
 
 interface Notify<T = void> {
-	attr: Fn<T, { attribute: string | null; target: Node }>;
-	add: Fn<T, NodeList>;
-	remove: Fn<T, NodeList>;
+	attr: (obj: { attribute: string | null; target: Node }) => T;
+	add: (nodes: NodeList) => T;
+	remove: (nodes: NodeList) => T;
 	mutate: (added: NodeList, removed: NodeList) => T;
-	resize: Fn<T, ResizeObserverEntry>;
-	intersect: Fn<T, IntersectionObserverEntry>;
+	resize: (entry: ResizeObserverEntry) => T;
+	intersect: (entry: IntersectionObserverEntry) => T;
 }
 
 type Fn<T = void, U = any> = (...args: U[]) => T;
