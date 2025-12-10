@@ -6,7 +6,7 @@
  * @summary Created to encourage greater use of these high-value JS utilities,
  * as they're vastly underused and unknown, largely due to their complex implementation strategy.
  * @author Daniel B. Kazmer
- * @version 1.0.3
+ * @version 1.1.0
  * @see {@link https://github.com/dkazmer/Obsidium|GitHub}
  */
 export namespace Obsidium {
