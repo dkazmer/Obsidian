@@ -51,8 +51,8 @@ const myObs: Obsidium = Obsidium[obsName](elementObsd, obsOptions);
 
 ### Advanced
 
-As of v1.1 …
-- use the additional `subscribe` method
+<!-- As of v1.1 … -->
+- use the alternatively available `subscribe` method
 - import only the wrapper class you need
 
 <!-- As of v1.1, use the `subscribe` method.

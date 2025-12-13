@@ -141,9 +141,10 @@ abstract class Observer<
 	 * @summary subscription method, with accurate IntelliSense; examples in parent class/fn
 	 */
 	public on<K extends OnKeys>(name: K, fn: Exclude<Notify[K], undefined>): Observer<T, Exclude<OnKeys, K>> {
-		if (this.notify[name]) console.warn(`Obsidium: a subscription already exists for "${name}" on this instance.`);
-		// @ts-expect-error: 2556
-		else this.notify[name] = (...e: any[]) => fn.call(this, ...e);
+		this.notify[name]
+			? console.warn(`Obsidium: a subscription already exists for <${name}> on this instance.`)
+			: (this.notify[name] = (...e: any[]) => fn.call(this, ...(e as [any, any])));
+
 		return this;
 	}
 
@@ -152,8 +153,9 @@ abstract class Observer<
 	 * @summary subscription method; like {@linkcode on} but non-discriminatory; pass only callback
 	 */
 	public subscribe(fn: Exclude<typeof this.notifySub, undefined>): void {
-		if (this.notifySub) console.warn('Obsidium: a "subscribe" notifier has already been created for this instance.');
-		else this.notifySub = e => fn.call(this, e);
+		this.notifySub
+			? console.warn('Obsidium: a <subscribe> notifier has already been created for this instance.')
+			: (this.notifySub = e => fn.call(this, e));
 	}
 }
 
