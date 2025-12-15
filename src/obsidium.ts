@@ -248,16 +248,3 @@ interface Notify<T = void> {
 }
 
 export type Obsidium = ReturnType<(typeof Obsidium)[keyof typeof Obsidium]>;
-
-/**
- * v110
- * precise types in Notify interface
- * Obsidium namespace is indexed less manually: `[keyof typeof Obsidium]`
- * `.on()` return type excludes notifiers already used
- * `.on()` check whether a notifier already exists
- * new! `.subscribe()` subscription method
- * export each wrapper class individually
- * crossed 80% unit test coverage!
- */
-
-// register "obsidium.dev"
