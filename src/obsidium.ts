@@ -62,7 +62,7 @@ abstract class Observer<
 	#isSuspended = true;
 
 	protected observer!: T;
-	protected notify: { [K in OnKeys]?: Notify<ThisType<Observer<T, OnKeys>>>[K] } = {};
+	protected notify: { [K in OnKeys]?: Notify<ThisType<this>>[K] } = {};
 	protected notifySub?(
 		this: Obsidium,
 		arg: T extends IntersectionObserver
@@ -71,7 +71,8 @@ abstract class Observer<
 				? ResizeObserverEntry
 				: T extends MutationObserver
 					? MutationRecord[]
-					: never
+					: never,
+		obs: Obsidium
 	): void;
 
 	public type = '';
@@ -156,7 +157,7 @@ abstract class Observer<
 	public subscribe(fn: Exclude<typeof this.notifySub, undefined>): void {
 		this.notifySub
 			? console.warn('Obsidium: a <subscribe> notifier has already been created for this instance.')
-			: (this.notifySub = e => fn.call(this as Any, e)); // Any to avoid unnecessary, internal-facing TS gymnastics
+			: (this.notifySub = e => fn.call(this as Any, e, this as Any)); // Any to avoid unnecessary, internal-facing TS gymnastics
 	}
 }
 
@@ -168,7 +169,7 @@ export class Intersection extends Observer<IntersectionObserver, Extract<keyof N
 			(entries, _obs) => {
 				for (const entry of entries) {
 					this.notify.intersect?.(entry, this);
-					this.notifySub?.(entry);
+					this.notifySub?.(entry, this);
 				}
 			},
 			{
@@ -189,7 +190,7 @@ export class Resize extends Observer<ResizeObserver, Extract<keyof Notify, 'resi
 		this.observer = new ResizeObserver((entries, _obs) => {
 			for (const entry of entries) {
 				this.notify.resize?.(entry, this);
-				this.notifySub?.(entry);
+				this.notifySub?.(entry, this);
 			}
 		});
 
@@ -220,7 +221,7 @@ export class Mutation extends Observer<MutationObserver, keyof Omit<Notify, 'res
 				}
 			}
 
-			this.notifySub?.(records);
+			this.notifySub?.(records, this);
 		});
 
 		this.resume();
