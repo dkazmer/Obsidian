@@ -1,5 +1,6 @@
 # Release notes: 1.2.0
 - notifer callbacks: return instance as final argument
+- precise `this` context for all notifer callbacks
 
 # Release notes: 1.1.1
 - properly typed `this` context for all notifer callbacks

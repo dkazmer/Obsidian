@@ -63,17 +63,7 @@ abstract class Observer<
 
 	protected observer!: T;
 	protected notify: { [K in OnKeys]?: Notify<ThisType<this>>[K] } = {};
-	protected notifySub?(
-		this: Obsidium,
-		arg: T extends IntersectionObserver
-			? IntersectionObserverEntry
-			: T extends ResizeObserver
-				? ResizeObserverEntry
-				: T extends MutationObserver
-					? MutationRecord[]
-					: never,
-		obs: Obsidium
-	): void;
+	protected notifySub?(this: FromObserver<T>[1], arg: FromObserver<T>[0], obs: Obsidium): void;
 
 	public type = '';
 
@@ -142,7 +132,10 @@ abstract class Observer<
 	 * `on` (specific)
 	 * @summary subscription method, with accurate IntelliSense; examples in parent class/fn
 	 */
-	public on<K extends OnKeys>(name: K, fn: Exclude<Notify[K], undefined>): Observer<T, Exclude<OnKeys, K>> {
+	public on<K extends OnKeys>(
+		name: K,
+		fn: Exclude<Notify<FromObserver<T>[1]>[K], undefined>
+	): Observer<T, Exclude<OnKeys, K>> {
 		this.notify[name]
 			? console.warn(`Obsidium: a subscription already exists for <${name}> on this instance.`)
 			: (this.notify[name] = (...e: unknown[]) => fn.call(this as Any, ...(e as [Any, Any, Any]))); // Any's to avoid unnecessary, internal-facing TS gymnastics
@@ -245,12 +238,20 @@ type Any = any;
 
 // must include a user-facing default generic
 interface Notify<T = Obsidium> {
-	attr: (this: T, obj: { attribute: string | null; target: Node }, obs: T) => void;
-	add: (this: T, nodes: NodeList, obs: T) => void;
-	remove: (this: T, nodes: NodeList, obs: T) => void;
-	mutate: (this: T, added: NodeList, removed: NodeList, obs: T) => void;
-	resize: (this: T, entry: ResizeObserverEntry, obs: T) => void;
-	intersect: (this: T, entry: IntersectionObserverEntry, obs: T) => void;
+	attr: (this: T, obj: { attribute: string | null; target: Node }, obs: Obsidium<'mutation'>) => void;
+	add: (this: T, nodes: NodeList, obs: Obsidium<'mutation'>) => void;
+	remove: (this: T, nodes: NodeList, obs: Obsidium<'mutation'>) => void;
+	mutate: (this: T, added: NodeList, removed: NodeList, obs: Obsidium<'mutation'>) => void;
+	resize: (this: T, entry: ResizeObserverEntry, obs: Obsidium<'resize'>) => void;
+	intersect: (this: T, entry: IntersectionObserverEntry, obs: Obsidium<'intersection'>) => void;
 }
 
 export type Obsidium<T extends keyof typeof Obsidium = keyof typeof Obsidium> = ReturnType<(typeof Obsidium)[T]>;
+
+type FromObserver<T> = T extends IntersectionObserver
+	? [IntersectionObserverEntry, Intersection]
+	: T extends ResizeObserver
+		? [ResizeObserverEntry, Resize]
+		: T extends MutationObserver
+			? [MutationRecord[], Mutation]
+			: [never, Obsidium];

@@ -10,7 +10,7 @@ window.ro = Obsidium.resize(document.body).on('resize', ({ contentBoxSize }) =>
 	console.log('>> resized!', contentBoxSize)
 );
 
-window.io = Obsidium.intersection(document.body).on('intersect', function ({ isIntersecting }) {
+window.io = Obsidium.intersection(document.body).on('intersect', function ({ isIntersecting }, _obs) {
 	console.log('>> intersected!', isIntersecting, this.dump);
 });
 
