@@ -5,7 +5,7 @@ Declarative wrapper class for the JS observers.
 
 Created to encourage greater use of these high-value JS utilities, as they're vastly unknown and criminally underused, largely due to their complex implementation strategy. I found that every time I wanted to use one or more of them, I'd have to go out of my way to research and refresh my understanding thereof.
 
-Moreover, there are subtle differences in their implementation between them that are somewhat irritating. I really just want to _set it and forget it._ `Obsidium` allows you to do just that…in a strongly typed, consolidated way. 
+Moreover, there are subtle differences in their implementation between them that are somewhat irritating. I really just want to _set it and forget it._ `Obsidium` allows you to do just that…in a strongly typed, consolidated way.
 
 Obs. name | wraps…
 --------- | --------
@@ -15,7 +15,7 @@ Obs. name | wraps…
 
 ### Usage
 
-The idea is to instantiate the desired type of observer, then subscribe to it via `.on(…)` — fully IntelliSensed — without having to be aware of the underlying BS.
+The idea is to instantiate the desired type of observer, then subscribe to it…without having to be aware of the underlying BS.
 
 Implementation examples (not exhaustive):
 ```ts
@@ -36,7 +36,7 @@ Obsidium.intersection(element)
 
 ### Members
 
-Control your instance with the following methods:
+__Control__ your instance with the following methods:
 
 Method | Desc.
 ------ | -----
@@ -57,4 +57,4 @@ const myObs: Obsidium = Obsidium[name](element, options?);
 
 - use the alternatively available `subscribe` method
 - find the `Obsidium` instance object as an additional callback parameter
-- import only the wrapper class you need for optimal tree shaking
+- import only the wrapper class you need for optimal _tree shaking_
