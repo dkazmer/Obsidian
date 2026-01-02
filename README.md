@@ -15,17 +15,17 @@ Obs. name | wraps…
 
 ### Usage
 
-The idea is to instantiate the desired type of observer, then subscribe to it…without having to be aware of the underlying BS.
+The idea is to instantiate the desired type of observer, then simply subscribe to it…without having to be aware of the underlying BS.
 
 Implementation examples (not exhaustive):
 ```ts
 import { Obsidium } from 'obsidium';
 
 Obsidium.mutation(scopeElement)
-	.on('add', myCallbackAdd)
-	.on('remove', myCallbackRmv);
+	.on('add', addFn)
+	.on('remove', removeFn);
 
-Obsidium.resize(element).on('resize', myCallbackRsz);
+Obsidium.resize(element).on('resize', resizeFn);
 
 Obsidium.intersection(element)
 	.on('intersect', function ({ contentBoxSize }) {

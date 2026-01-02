@@ -1,8 +1,8 @@
-import { Obsidium } from './obsidium';
+import { Mutation, Obsidium } from './obsidium';
 
-const { resize, mutation, intersection } = Obsidium;
+const { resize, intersection } = Obsidium;
 
-window.mo = mutation(document.body)
+window.mo = new Mutation(document.body)
 	.on('add', nodes => console.log('>> added!', nodes))
 	.on('remove', nodes => console.log('>> removed!', nodes))
 	// .on('mutate', (added, removed) => console.log('>> mutated!', added, removed))
