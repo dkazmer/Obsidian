@@ -32,3 +32,11 @@ window.ro.subscribe(function (entry) {
 	console.log('>>> entry', entry);
 });
  */
+
+Obsidium.any(document.body)
+	.on('mutate', (added, removed) => {
+		console.log('>> any: mutate', added, removed);
+	})
+	.on('resize', ({ contentBoxSize }) => {
+		console.log('>> any: resize', contentBoxSize);
+	});
