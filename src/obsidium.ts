@@ -302,11 +302,8 @@ class All<T extends MutationObserver | ResizeObserver | IntersectionObserver, On
 			return;
 		}
 
-		// @ts-expect-error: protected prop
-		this.#observers.forEach(({ observer: obs }) => {
-			obs instanceof MutationObserver
-				? obs.observe(this.target, { attributes: true, childList: true, subtree: true, ...this.settings })
-				: obs.observe(this.target as Element);
+		this.#observers.forEach(obs => {
+			obs.resume();
 		});
 
 		this.#isSuspended = false;
@@ -322,9 +319,8 @@ class All<T extends MutationObserver | ResizeObserver | IntersectionObserver, On
 			return;
 		}
 
-		// @ts-expect-error: protected prop
-		this.#observers.forEach(({ observer: obs }) => {
-			obs.disconnect();
+		this.#observers.forEach(obs => {
+			obs.suspend();
 		});
 
 		this.#isSuspended = true;
@@ -343,9 +339,8 @@ class All<T extends MutationObserver | ResizeObserver | IntersectionObserver, On
 	 * @summary end the process entirely and destroy the instance
 	 */
 	public dump() {
-		// @ts-expect-error: protected prop
-		this.#observers.forEach(({ observer: obs }) => {
-			obs.disconnect();
+		this.#observers.forEach(obs => {
+			obs.dump();
 		});
 
 		for (const prop in this) {
