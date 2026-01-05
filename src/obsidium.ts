@@ -337,6 +337,7 @@ class All<T extends ObserverType, OnKeys extends keyof Notify = ByObs<T>[2]> {
 		});
 
 		for (const prop in this) {
+			console.log('>> prop', prop);
 			Object.hasOwn(this, prop) && delete this[prop];
 		}
 	}

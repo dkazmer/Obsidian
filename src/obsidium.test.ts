@@ -1,5 +1,5 @@
 import type { Mock } from 'vitest/dist/index';
-import { Obsidium } from './obsidium';
+import { Obsidia, Obsidium } from './obsidium';
 
 const mockMethods = {
 	mo<T extends NodeList | MoAttr>(_arg: T) {
@@ -148,9 +148,37 @@ describe('Intersection Observer', () => {
 	});
 });
 
+describe('Obsidia', () => {
+	const elem = mockDOM();
+	const obs = Obsidia(elem);
+
+	it('should create', () => {
+		expect<Obsidia>(obs).toBeTruthy();
+	});
+
+	it('should attach subscriber', () => {
+		// @ts-expect-error (2345): private prop
+		const spy = vi.spyOn(obs, 'determine');
+
+		obs.on('intersect', () => {
+			console.log('>> Obsidia: intersected!');
+		});
+
+		expect<Mock>(spy).toHaveBeenCalledOnce();
+	});
+
+	it('should be destroyed', () => {
+		const spy = vi.spyOn(obs, 'dump');
+		obs.dump();
+		expect<Mock>(spy).toHaveBeenCalledOnce();
+		// @ts-expect-error (2341): private prop
+		expect(obs.target).toBeUndefined();
+	});
+});
+
 function mockDOM(container?: HTMLElement) {
 	const div = document.createElement('div');
-	container ? container.append(div) : document.body.append(div);
+	(container || document.body).append(div);
 	return div;
 }
 
