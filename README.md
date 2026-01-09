@@ -33,6 +33,7 @@ Obsidium.intersection(element)
 		// do something...
 	});
 ```
+See more [code examples](https://github.com/dkazmer/Obsidium/wiki/Code-examples).
 
 ### Members
 
@@ -59,3 +60,7 @@ const myObs: Obsidium = Obsidium[name](element, options?);
 - find the `Obsidium` instance object as an additional callback parameter
 - import only the wrapper class you need for optimal _tree shaking_
 - attach multiple observers to the same element at once with `Obsidia`
+
+---
+
+![Coded by human](https://webshifted.com/tribute/imgs/blog.gif)
